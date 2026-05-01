@@ -1,0 +1,15 @@
+{% extends "auctions/layout.html" %}
+{% block body %}
+
+
+<h2>Watchlist</h2>
+
+{% for listing in listings %}
+    {% include "auctions/_listing_card.html" with hide_watchlist_badge=True show_watchlist_btn=True %}
+{% empty %}
+<div>No active listings.</div>
+{% endfor %}
+
+
+
+{% endblock %}

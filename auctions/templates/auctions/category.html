@@ -1,0 +1,13 @@
+{% extends "auctions/layout.html" %} {% block body %}
+<h2>Category: {{ category.name }}</h2>
+
+
+{% for listing in listings %}
+    {% include "auctions/_listing_card.html" %}
+{% empty %}
+<div>No active listings.</div>
+{% endfor %}
+
+
+
+{% endblock %}

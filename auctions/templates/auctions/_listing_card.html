@@ -1,0 +1,78 @@
+ <!-- <div class="card mb-3" position-relative>
+    <div class="row g-0">
+      <div class="col-md-4" style="display: flexbox;">
+          {% if listing.image %}
+              <img src="{{ listing.image }}" class="img-fluid rounded-start" style="height: 300px; align-items: center; justify-content:center; object-fit: cover;" alt="{{ listing.title }}"/>
+              {% else %}
+                <img src="https://placehold.co/400x300?text=No+Image" class="img-fluid rounded-start" style="height: 300px; align-self: center;" alt="No image available"/>
+              {% endif %}
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ listing.title }}</h5>
+          <p class="card-text">Price: ${{ listing.starting_bid }}</p>
+          <p class="card-text">
+            <small class="text-body-secondary">{{ listing.created_at }}</small>
+            <br><br><br>
+            {% if listing in watchlist %}
+             <button type="button" class="btn btn-outline-primary btn-sm">Remove from Watchlist</button>
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div> -->
+ 
+<div class="card mb-3 shadow-sm">
+    <div class="row no-gutters">
+      
+      <div class="col-md-4 position-relative d-flex justify-content-center align-items-center bg-white" style="height: 250px;">
+          
+          {% if listing in watchlist and not hide_watchlist_badge %}
+              <span class="badge badge-dark position-absolute" style="top: 10px; left: 10px; z-index: 10;">
+                  Watchlist
+              </span>
+          {% endif %}
+
+          {% if listing.image %}
+              <img src="{{ listing.image }}" class="img-fluid" style="height: 100%; max-width: 100%; object-fit: contain;" alt="{{ listing.title }}"/>
+          {% else %}
+              <img src="https://placehold.co/400x300?text=No+Image" class="w-100 h-100" style="object-fit: cover;" alt="No image available"/>
+              {% endif %}
+          
+      </div>
+      
+      <div class="col-md-8">
+        <div class="card-body">
+          
+          <h5 class="card-title">
+              <a href="{% url 'listing' listing.id %}" class="text-dark text-decoration-none stretched-link">
+                  <strong>{{ listing.title }}</strong>
+              </a>
+          </h5>
+
+          <p class="card-text mb-2"><strong>Price:</strong> ${{ listing.starting_bid }}</p>
+          <br>
+          {% if show_watchlist_btn %}
+             {% if listing in watchlist %}
+              <a href="{% url 'toggle_watchlist' listing.id %}" class="btn btn-outline-danger btn-sm position-relative" style="z-index: 2;">Remove from Watchlist</a>
+            {% else %}
+                <a href="{% url 'toggle_watchlist' listing.id %}" class="btn btn-outline-primary btn-sm position-relative" style="z-index: 2;">Add to Watchlist</a>
+            {% endif %}
+            <br>
+          {% endif %}
+
+          {% if show_win %}
+            <span class="badge badge-success mt-2 p-1">Won by {% if request.user == listing.winner %}you{% else %}{{ listing.winner.username }}{% endif %}</span>
+          {% endif %}
+          
+          <br>
+          <p class="card-text">
+            <small class="text-muted">Created {{ listing.created_at }}</small>
+          </p>
+
+        </div>
+      </div>
+      
+    </div>
+</div>

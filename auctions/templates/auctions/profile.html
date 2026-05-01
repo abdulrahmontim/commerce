@@ -1,0 +1,42 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2 class="mb-4">{{ profile_user.username }}'s profile</h2>
+    
+    <div class="mb-4">
+        <p><strong>Email:</strong> {{ profile_user.email }}</p>
+        <p><strong>Member since:</strong> {{ profile_user.date_joined|date:"F Y" }}</p>
+    </div>
+
+    <hr>
+
+        <h3 class="mb-3">Won Listing(s) by {{ profile_user.username }}</h3>
+    <br>
+    <div class="row">
+        {% for listing in won_listings %}
+            <div class="col-12">
+                {% include "auctions/_listing_card.html" with show_win=True %}
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">This user has no won listings.</div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <hr>
+
+    <h3 class="mb-3">Active Listings by {{ profile_user.username }}</h3>
+    <br>
+    <div class="row">
+        {% for listing in listings %}
+            <div class="col-12">
+                {% include "auctions/_listing_card.html" %}
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">This user has no active listings.</div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

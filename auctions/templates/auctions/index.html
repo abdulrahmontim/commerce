@@ -1,0 +1,17 @@
+{% extends "auctions/layout.html" %} {% block body %}
+<h2>Active Listings</h2>
+
+{% if comments %}
+  
+{% endif %}
+{% for listing in listings %}
+{% if listing.active %}
+    {% include "auctions/_listing_card.html" %}
+  {% endif %}
+{% empty %}
+<div>No active listings.</div>
+{% endfor %}
+
+
+
+{% endblock %}
